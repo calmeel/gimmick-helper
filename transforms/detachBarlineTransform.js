@@ -62,6 +62,29 @@ function runDetachBarlineTransform(text, options = {}) {
 
     const targetTime = barlineTime + 1;
 
+  for (const barlineTime of barlineTimes) {
+    const targetTime = barlineTime + 1;
+
+    const matchedObjects = hitObjects.filter(object => {
+      const diff = object.time - barlineTime;
+      return diff >= -1 && diff <= 1;
+    });
+
+    if (!matchedObjects.length) {
+      warnings.push({
+        key: "noObjectNearBarline",
+        time: barlineTime
+      });
+
+      continue;
+    }
+
+    const fallbackState =
+      getActiveTimingPointStateAt(
+        text,
+        barlineTime
+      );
+
     timingLines.push(
       createGreenLine({
         time: barlineTime,
@@ -82,12 +105,8 @@ function runDetachBarlineTransform(text, options = {}) {
       })
     );
 
-    for (const object of hitObjects) {
+    for (const object of matchedObjects) {
       const diff = object.time - barlineTime;
-
-      if (diff < -1 || diff > 1) {
-        continue;
-      }
 
       const newParts = [...object.parts];
       newParts[2] = String(targetTime);
@@ -107,6 +126,7 @@ function runDetachBarlineTransform(text, options = {}) {
         objectType: object.objectType
       });
     }
+  }
   }
 
   let rewrittenText = replaceHitObjectLines(
@@ -151,7 +171,10 @@ function runDetachBarlineTransform(text, options = {}) {
   return {
     text: rewrittenText,
     summary,
-    warnings: timingResult.warnings,
+    warnings: [
+      ...warnings,
+      ...(timingResult.warnings ?? [])
+    ],
     details: {
       movedObjects: movedNotes
     }

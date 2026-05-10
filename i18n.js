@@ -60,6 +60,7 @@ const i18n = {
     noBarlineTimes: "No barline times were entered.",
     invalidSvValue: "SV must be greater than 0.",
     invalidVolumeValue: "volume must be between 0 and 100.",
+    noObjectNearBarline: "No HitObject was found near this barline time.",
 
     previewLog: "Preview log",
     previewTransform: "Preview",
@@ -132,6 +133,7 @@ const i18n = {
     noBarlineTimes: "小節線の時刻が入力されていません。",
     invalidSvValue: "SV は 0 より大きい値にしてください。",
     invalidVolumeValue: "volume は 0〜100 の範囲にしてください。",
+    noObjectNearBarline: "この時刻の周辺に HitObject が見つかりませんでした。",
 
     previewLog: "プレビュー結果",
     previewTransform: "プレビュー",

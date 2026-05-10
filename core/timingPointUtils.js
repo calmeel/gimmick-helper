@@ -110,7 +110,7 @@ function createGreenLine({
 
   let effects = 0;
 
-  if (kiai === "on") {
+  if (finalKiai) {
     effects |= 1;
   }
 

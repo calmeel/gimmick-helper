@@ -576,3 +576,28 @@ h1 {
   background: var(--bg-panel-hover);
   text-decoration: none;
 }
+
+.header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.header-right .language-switch {
+  justify-content: flex-end;
+  margin-top: 0;
+}
+
+/** 警告色 */
+.preview-warning {
+  color: var(--warn);
+}
+
+.preview-summary {
+  color: var(--accent-soft);
+}
+
+.preview-error {
+  color: var(--error);
+}

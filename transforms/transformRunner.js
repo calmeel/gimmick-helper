@@ -26,7 +26,8 @@ function runTransformForFile(source, transformFn, options = {}) {
           }]
         : [])
     ],
-    warnings: result.warnings ?? []
+    warnings: result.warnings ?? [],
+    details: result.details ?? null
   };
 }
 

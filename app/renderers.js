@@ -75,16 +75,22 @@ function renderTransformResult(output, result, t) {
   if (result.warnings?.length) {
     lines.push(`${t("warnings")}:`);
     for (const item of result.warnings) {
-      lines.push(`- ${formatWarningItem(item, t)}`);
+      lines.push(
+        `<span class="preview-warning">- ${formatWarningItem(item, t)}</span>`
+      );
     }
   }
 
-  output.textContent = lines.join("\n").trimEnd();
+  output.innerHTML = lines.join("<br>");
 }
 
 function formatWarningItem(item, t) {
   if (typeof item === "string") {
     return item;
+  }
+
+  if (item?.key === "noObjectNearBarline") {
+    return `${t("noObjectNearBarline")}: ${item.time} ms`;
   }
 
   if (item?.key === "existingGreenLineOverwritten") {

@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const STORAGE_KEY = "gimmickHelperSettings";
   const updateLogModal = document.getElementById("updateLogModal");
   const openUpdateLogButton = document.getElementById("openUpdateLogButton");
   const closeUpdateLogButton = document.getElementById("closeUpdateLogButton");
@@ -18,8 +17,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const detachBarlineSv = document.getElementById("detachBarlineSv");
   const detachNoteVolume = document.getElementById("detachNoteVolume");
   const detachBarlineVolume = document.getElementById("detachBarlineVolume");
-  const detachNoteKiai = document.getElementById("detachNoteKiai");
-  const detachBarlineKiai = document.getElementById("detachBarlineKiai");
 
   const i18nData = window.i18n ?? i18n;
 
@@ -31,8 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
     detachBarlineSv,
     detachNoteVolume,
     detachBarlineVolume,
-    detachNoteKiai,
-    detachBarlineKiai
   };
 
   let currentLang =

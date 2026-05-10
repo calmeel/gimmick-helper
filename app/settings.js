@@ -36,15 +36,6 @@ function setupGimmickHelperSettings(dom) {
     }
   }
 
-  function syncSuffixCheckbox() {
-    if (!dom.enableSuffix || !dom.suffixInput) return;
-
-    const hasSuffix = dom.suffixInput.value.trim().length > 0;
-
-    dom.enableSuffix.checked = hasSuffix;
-    dom.enableSuffix.disabled = !hasSuffix;
-  }
-
   function setupPersistence() {
     const targets = [
       dom.suffixInput,
@@ -76,6 +67,5 @@ function setupGimmickHelperSettings(dom) {
   return {
     saveSettings,
     loadSettings,
-    syncSuffixCheckbox
   };
 }

@@ -54,34 +54,6 @@ function parseMetadata(text) {
   return metadata;
 }
 
-function parseTimingPoints(text) {
-  const lines = getSectionLines(text, "TimingPoints");
-  const timingPoints = [];
-
-  for (const line of lines) {
-    const trimmed = line.trim();
-
-    if (!trimmed || trimmed.startsWith("//")) continue;
-
-    const parts = trimmed.split(",").map(p => p.trim());
-    if (parts.length < 8) continue;
-
-    timingPoints.push({
-      time: Number(parts[0]),
-      beatLength: Number(parts[1]),
-      meter: Number(parts[2]),
-      sampleSet: Number(parts[3]),
-      sampleIndex: Number(parts[4]),
-      volume: Number(parts[5]),
-      uninherited: Number(parts[6]),
-      effects: Number(parts[7]),
-      raw: line
-    });
-  }
-
-  return timingPoints;
-}
-
 function parseHitObjects(text) {
   const lines = getSectionLines(text, "HitObjects");
 
