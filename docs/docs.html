@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gimmick Helper 説明書</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+      background: #111;
+      color: #eee;
+    }
+
+    h1 {
+      border-bottom: 2px solid #444;
+      padding-bottom: 10px;
+    }
+
+    h2 {
+      margin-top: 40px;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      color: #b6aeff;
+      border-bottom: 2px solid #3a3a3a;
+    }
+
+    h3 {
+      margin-top: 20px;
+      color: #d8d3ff;
+    }
+
+    a {
+      color: #b6aeff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #d8d3ff;
+      text-decoration: underline;
+    }
+
+    code {
+      background: #2a2840;
+      color: #f2f2f2;
+      border: 1px solid #555568;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.95em;
+      white-space: nowrap;
+    }
+
+    pre {
+      background: #17171c;
+      border: 1px solid #333344;
+      border-radius: 6px;
+      padding: 10px 12px;
+      overflow-x: auto;
+      color: #ddd;
+    }
+
+    .section {
+      background: #181818;
+      border: 1px solid #2a2a2a;
+      border-left: 4px solid #8b7dff;
+      border-radius: 6px;
+      padding: 12px 14px;
+      margin-top: 10px;
+      margin-bottom: 14px;
+    }
+
+    .section-bg {
+      border-left-color: #8b7dff;
+    }
+
+    .section-detect {
+      border-left-color: #ffd580;
+    }
+
+    .section-warning {
+      border-left-color: #ff8a8a;
+    }
+
+    .label {
+      font-weight: bold;
+      display: inline-block;
+      margin-bottom: 4px;
+    }
+
+    .label-bg {
+      color: #b6aeff;
+    }
+
+    .label-detect {
+      color: #ffd580;
+    }
+
+    .label-warning {
+      color: #ff8a8a;
+    }
+
+    .note-subtext {
+      font-size: 13px;
+      color: #aaa;
+      line-height: 1.6;
+    }
+
+    .docs-layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .doc-tabs {
+      position: sticky;
+      top: 24px;
+      margin-top: 30px;
+      max-height: calc(100vh - 48px);
+      overflow-y: auto;
+      background: #181818;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      padding: 6px;
+    }
+
+    .doc-tab-group {
+      margin-bottom: 6px;
+      border: 1px solid #2f2f2f;
+      border-radius: 6px;
+      background: #161616;
+      overflow: hidden;
+    }
+
+    .doc-tab-group summary {
+      padding: 7px 8px;
+      cursor: pointer;
+      background: #242424;
+      color: #d0d0d0;
+      font-size: 12px;
+      font-weight: bold;
+      user-select: none;
+    }
+
+    .doc-tab-group[open] > summary {
+      background: #2b2545;
+      color: #b6aeff;
+      border-bottom: 1px solid #50498a;
+    }
+
+    .doc-tab-button {
+      width: calc(100% - 12px);
+      display: block;
+      padding: 6px 8px;
+      margin: 4px 6px;
+      border: 1px solid #333;
+      border-radius: 5px;
+      background: #202020;
+      color: #ccc;
+      text-align: left;
+      cursor: pointer;
+      font-size: 12px;
+      line-height: 1.25;
+    }
+
+    .doc-tab-button:hover {
+      background: #262626;
+      color: #fff;
+    }
+
+    .doc-tab-button.active {
+      background: #2a2840;
+      border-color: #8b7dff;
+      color: #b6aeff;
+      font-weight: bold;
+    }
+
+    .doc-tab-panel {
+      display: none;
+    }
+
+    .doc-tab-panel.active {
+      display: block;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      margin-bottom: 14px;
+      font-size: 13px;
+    }
+
+    th, td {
+      border: 1px solid #333;
+      padding: 7px 8px;
+      vertical-align: top;
+      background: #181818;
+    }
+
+    th {
+      background: #2a2840;
+      color: #ddd;
+    }
+
+    @media (max-width: 900px) {
+      .docs-layout {
+        display: block;
+      }
+
+      .doc-tabs {
+        position: static;
+        max-height: none;
+        margin-bottom: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>Gimmick Helper 説明書</h1>
+
+<div class="docs-layout">
+  <nav class="doc-tabs">
+    <details class="doc-tab-group" open>
+      <summary>基本</summary>
+      <button class="doc-tab-button active" data-doc-tab="intro">このツールについて</button>
+      <button class="doc-tab-button" data-doc-tab="privacy">注意事項 / プライバシー</button>
+      <button class="doc-tab-button" data-doc-tab="usage">基本的な使い方</button>
+    </details>
+
+    <details class="doc-tab-group">
+      <summary>変換機能</summary>
+      <button class="doc-tab-button" data-doc-tab="detachBarline">小節線の分離</button>
+    </details>
+
+    <details class="doc-tab-group">
+      <summary>共通機能</summary>
+      <button class="doc-tab-button" data-doc-tab="preview">プレビュー / ダウンロード</button>
+      <button class="doc-tab-button" data-doc-tab="suffix">難易度名 suffix</button>
+    </details>
+  </nav>
+
+  <main class="doc-tab-content">
+
+    <section class="doc-tab-panel active" data-doc-tab-panel="intro">
+      <h2>このツールについて</h2>
+
+      <div class="section section-bg">
+        <span class="label label-bg">■ 概要</span><br>
+        Gimmick Helper は、osu! の <code>.osu</code> ファイルをブラウザ上で読み込み、特定の gimmick 作成を補助するための変換ツールです。<br><br>
+
+        Modding Helper が「譜面の問題点を検出するチェックツール」であるのに対して、Gimmick Helper は
+        <strong>譜面ファイルを書き換え、変換後の <code>.osu</code> をダウンロードするツール</strong>です。
+      </div>
+
+      <div class="section section-bg">
+        <span class="label label-bg">■ 現在対応している入力</span><br>
+        現在は <code>.osu</code> 単体ファイルの読み込みに対応しています。<br>
+        <code>.osz</code> の読み込み・再生成には対応していません。
+      </div>
+    </section>
+
+    <section class="doc-tab-panel" data-doc-tab-panel="privacy">
+      <h2>注意事項 / プライバシー</h2>
+
+      <div class="section section-warning">
+        <span class="label label-warning">■ ファイル処理について</span><br>
+        読み込まれた <code>.osu</code> ファイルは、ブラウザ内でのみ処理されます。<br>
+        ファイル内容がサーバーへ送信・保存されることはありません。
+      </div>
+
+      <div class="section section-warning">
+        <span class="label label-warning">■ 元ファイルについて</span><br>
+        このツールは、ローカルの元ファイルを直接上書きしません。<br>
+        変換後の内容は、新しい <code>.osu</code> ファイルとしてダウンロードされます。
+      </div>
+
+      <div class="section section-warning">
+        <span class="label label-warning">■ 注意事項</span><br>
+        Gimmick Helper は gimmick 作成を補助するためのツールです。<br>
+        変換後の譜面が意図通りに動作することを保証するものではありません。<br><br>
+
+        変換後の <code>.osu</code> は、必ず osu!editor 上で確認してください。
+      </div>
+    </section>
+
+    <section class="doc-tab-panel" data-doc-tab-panel="usage">
+      <h2>基本的な使い方</h2>
+
+      <div class="section section-detect">
+        <span class="label label-detect">■ 手順</span><br>
+        <ol>
+          <li><code>.osu</code> ファイルを選択、またはドラッグ＆ドロップします。</li>
+          <li>使用したい変換タブを選びます。</li>
+          <li>必要な設定値を入力します。</li>
+          <li><code>プレビュー</code> ボタンを押して、変換内容を確認します。</li>
+          <li>問題がなければ <code>ダウンロード</code> ボタンを押して保存します。</li>
+        </ol>
+      </div>
+
+      <div class="section section-bg">
+        <span class="label label-bg">■ プレビューが必要な理由</span><br>
+        ダウンロードボタンは、直前にプレビューした変換結果を保存します。<br>
+        そのため、設定を変更した場合は、再度プレビューを行ってからダウンロードしてください。
+      </div>
+    </section>
+
+    <section class="doc-tab-panel" data-doc-tab-panel="detachBarline">
+      <h2>小節線の分離</h2>
+
+      <div class="section section-bg">
+        <span class="label label-bg">■ 背景</span><br>
+        osu!taiko の gimmick 作成では、小節線の表示と HitObject の表示を別々に制御したい場合があります。<br><br>
+
+        通常、小節線上に HitObject がある場合、その位置に SV line を置くと、小節線と HitObject の両方に同じ SV が適用されます。<br>
+        本機能は、HitObject を <code>+1 ms</code> ずらすことで、小節線位置と HitObject 位置に別々の SV line を置けるようにします。
+      </div>
+
+      <div class="section section-detect">
+        <span class="label label-detect">■ 変換内容</span><br>
+        入力された小節線時刻に対して、その時刻の <code>-1 ms</code>、<code>0 ms</code>、<code>+1 ms</code> にある HitObject (Circle, Slider, Spinner)を探索します。<br><br>
+
+        対象 HitObject が見つかった場合、HitObject の開始時刻を <code>小節線 + 1 ms</code> に移動します。<br>
+        その上で、小節線位置と HitObject 位置にそれぞれ新しい SV line を追加します。<br><br>
+
+        Slider や Spinner の終点時刻に変更は加えません。始点のみを <code>+1 ms</code> へ移動します。<br><br>
+
+        <div class="note-subtext">
+        Slider は slider長を元に時間を再計算するため +1 ms 平行移動します。なので終点も unsnapped になります。<br>
+        Spinner は終点時間を .osu で指定する方式です。なので終点は変更前と同じ snapped 状態のままになります。
+        </div>
+
+      </div>
+
+      <div class="section section-detect">
+        <span class="label label-detect">■ 移動ルール</span><br>
+
+        <table>
+          <thead>
+            <tr>
+              <th>元の HitObject 位置</th>
+              <th>変換後の HitObject 位置</th>
+              <th>追加される SV line</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>小節線 - 1 ms</code></td>
+              <td><code>小節線 + 1 ms</code></td>
+              <td>小節線位置 / 小節線 + 1 ms</td>
+            </tr>
+            <tr>
+              <td><code>小節線</code></td>
+              <td><code>小節線 + 1 ms</code></td>
+              <td>小節線位置 / 小節線 + 1 ms</td>
+            </tr>
+            <tr>
+              <td><code>小節線 + 1 ms</code></td>
+              <td>変更なし</td>
+              <td>小節線位置 / 小節線 + 1 ms</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section section-detect">
+        <span class="label label-detect">■ SV / volume の設定</span><br>
+        ノーツ側・小節線側それぞれに、SV と volume を入力できます。<br><br>
+
+        入力欄が空欄の場合は、その時刻で有効な既存 TimingPoint の値を継承します。<br>
+        例えば、対象時刻で有効な SV が <code>0.75</code>、volume が <code>80</code> の場合、空欄の項目はその値を引き継ぎます。
+      </div>
+
+      <div class="section section-warning">
+        <span class="label label-warning">■ 注意点</span><br>
+        追加予定の時刻に既存の緑線がある場合、その緑線は上書きされます。<br>
+        上書きが発生した場合は、プレビュー結果の警告欄に表示されます。<br><br>
+
+        kiai 状態は現在の TimingPoint から継承します。<br>
+        つまり、対象時刻で kiai が ON の場合は追加される SV line も kiai ON、OFF の場合は kiai OFF になります。<br><br>
+
+        本機能は gimmick 作成を補助するための機能です。<br>
+        変換後は必ず osu!editor で以下を確認してください。
+        <ul>
+          <li>HitObject が意図した位置に移動しているか</li>
+          <li>追加された SV line が意図した値になっているか</li>
+          <li>volume / kiai が意図通りに継承されているか</li>
+          <li>Slider / Spinner の見え方に問題がないか</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="doc-tab-panel" data-doc-tab-panel="preview">
+      <h2>プレビュー / ダウンロード</h2>
+
+      <div class="section section-bg">
+        <span class="label label-bg">■ 概要</span><br>
+        Gimmick Helper では、変換後すぐにダウンロードするのではなく、先にプレビュー結果を表示します。<br>
+        プレビューでは、変換後のファイル名、summary、警告、移動した HitObject の一覧などを確認できます。
+      </div>
+
+      <div class="section section-detect">
+        <span class="label label-detect">■ ダウンロードの仕組み</span><br>
+        <code>ダウンロード</code> ボタンは、最後にプレビューした変換結果を保存します。<br>
+        設定を変更した場合は、再度 <code>プレビュー</code> を押してからダウンロードしてください。
+      </div>
+    </section>
+
+    <section class="doc-tab-panel" data-doc-tab-panel="suffix">
+      <h2>難易度名 suffix</h2>
+
+      <div class="section section-bg">
+        <span class="label label-bg">■ 概要</span><br>
+        suffix を入力すると、出力ファイル名と <code>[Metadata]</code> セクション内の <code>Version:</code> が書き換えられます。
+      </div>
+
+      <div class="section section-detect">
+        <span class="label label-detect">■ 例</span><br>
+
+        入力ファイル名：
+        <pre><code>t+pazolite with siromaru - Chambarising (Vanity8) [chamba].osu</code></pre>
+
+        suffix に <code>v2</code> を入力した場合：
+        <pre><code>t+pazolite with siromaru - Chambarising (Vanity8) [chamba v2].osu</code></pre>
+
+        .osu 内の難易度名も以下のように変更されます。
+        <pre><code>Version:chamba</code> -> <code>Version:chamba v2</code></pre>
+      </div>
+
+      <div class="section section-warning">
+        <span class="label label-warning">■ 注意点</span><br>
+        suffix 欄が空欄の場合は、ファイル名と <code>Version:</code> は変更されません。<br>
+        既に同じ suffix が付いている場合でも、現在は重複チェックを行いません。
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const buttons = document.querySelectorAll(".doc-tab-button");
+    const panels = document.querySelectorAll(".doc-tab-panel");
+
+    for (const button of buttons) {
+      button.addEventListener("click", () => {
+        const name = button.dataset.docTab;
+
+        for (const b of buttons) {
+          b.classList.remove("active");
+        }
+
+        for (const panel of panels) {
+          panel.classList.remove("active");
+        }
+
+        button.classList.add("active");
+
+        const target = document.querySelector(
+          `.doc-tab-panel[data-doc-tab-panel="${name}"]`
+        );
+
+        if (target) {
+          target.classList.add("active");
+        }
+      });
+    }
+  });
+</script>
+
+</body>
+</html>

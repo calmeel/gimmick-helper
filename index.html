@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gimmick Helper</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <main class="app">
+
+    <header class="top-header">
+
+      <div class="header-left">
+        <h1>
+          Gimmick Helper
+          <span class="author">by Vanity8</span>
+        </h1>
+
+        <p data-i18n="subtitle">
+          osu! gimmick helper
+        </p>
+      </div>
+
+      <div class="header-right">
+
+        <div class="top-links">
+          <a href="docs/docs.html" target="_blank">📘 説明書 (JP)</a>
+          <a href="docs/docs-en.html" target="_blank">📘 Manual (EN)</a>
+
+          <button
+            id="openUpdateLogButton"
+            class="doc-btn"
+            type="button"
+          >
+            📝 Update Log
+          </button>
+        </div>
+
+        <div class="language-switch">
+          <button id="langEn" class="lang-button">
+            English
+          </button>
+
+          <button id="langJa" class="lang-button">
+            日本語
+          </button>
+        </div>
+
+      </div>
+
+    </header>
+
+    <section class="drop-area">
+      <div class="file-picker">
+        <label for="fileInput" class="file-button" data-i18n="selectFile">Select file</label>
+        <span id="fileName" class="file-name">No file selected</span>
+        <input id="fileInput" class="file-input" type="file" accept=".osu" />
+      </div>
+    </section>
+
+    <section class="tabs">
+      <div class="tab-buttons">
+        <button class="tab-button active" data-tab="noop" data-i18n="tabBasic">
+          Basic
+        </button>
+
+        <button class="tab-button" data-tab="detachBarline" data-i18n="tabDetachBarline">
+          Detach Barline
+        </button>
+      </div>
+
+      <section id="tab-noop" class="tab-panel active">
+        <div class="transform-panel">
+          <h2 data-i18n="tabBasic">Basic</h2>
+          <p class="note-subtext" data-i18n="basicDescription">
+            Select a transform tab, configure options, then preview and download the result.
+          </p>
+        </div>
+      </section>
+
+      <section id="tab-detachBarline" class="tab-panel">
+        <div class="transform-panel">
+          <h2 data-i18n="detachBarlineTitle">Detach Barline</h2>
+
+          <div class="option-grid">
+            <label class="option-grid-wide">
+              <span data-i18n="barlineTimes">Barline times</span>
+              <input
+                id="detachBarlineTimes"
+                class="text-input wide-input"
+                type="text"
+                data-i18n-placeholder="barlineTimesPlaceholder"
+                placeholder="e.g. 01:23:456 -"
+              />
+            </label>
+
+              <div class="detach-columns option-grid-wide">
+                <div class="detach-column">
+                  <h3 data-i18n="noteSide">ノーツ側</h3>
+
+                  <input
+                    id="detachNoteSv"
+                    class="text-input"
+                    type="number"
+                    step="0.01"
+                    data-i18n-placeholder="svPlaceholder"
+                    placeholder="SV"
+                  />
+
+                  <input
+                    id="detachNoteVolume"
+                    class="text-input"
+                    type="number"
+                    min="0"
+                    max="100"
+                    data-i18n-placeholder="volumePlaceholder"
+                    placeholder="volume"
+                  />
+                </div>
+
+                <div class="detach-column">
+                  <h3 data-i18n="barlineSide">小節線側</h3>
+
+                  <input
+                    id="detachBarlineSv"
+                    class="text-input"
+                    type="number"
+                    step="0.01"
+                    data-i18n-placeholder="svPlaceholder"
+                    placeholder="SV"
+                  />
+
+                  <input
+                    id="detachBarlineVolume"
+                    class="text-input"
+                    type="number"
+                    min="0"
+                    max="100"
+                    data-i18n-placeholder="volumePlaceholder"
+                    placeholder="volume"
+                  />
+                </div>
+              </div>
+          </div>
+
+          <p class="note-subtext" data-i18n="detachBarlineDescription">
+            If a circle note is placed on a barline or within ±1 ms, it will be separated from the barline.
+          </p>
+        </div>
+      </section>
+      
+    </section>
+
+    <section class="preview-log">
+      <h2 data-i18n="previewLog">Preview log</h2>
+      <pre id="output" class="placeholder">No file loaded.</pre>
+    </section>
+
+    <section class="transform-actions">
+      <label class="suffix-option">
+        <span data-i18n="suffixLabel">Difficulty name suffix</span>
+        <input
+          id="suffixInput"
+          class="text-input"
+          type="text"
+          data-i18n-placeholder="suffixPlaceholder"
+          placeholder="e.g. gimmick"
+        />
+      </label>
+
+      <button id="previewTransformButton" class="doc-btn" data-i18n="previewTransform">
+        Preview
+      </button>
+
+      <button id="downloadTransformButton" class="doc-btn" data-i18n="downloadTransformedFile" disabled>
+        Download
+      </button>
+    </section>
+
+  </main>
+
+<div id="updateLogModal" class="modal hidden">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Update Log</h2>
+
+      <button
+        id="closeUpdateLogButton"
+        class="modal-close-button"
+        type="button"
+      >
+        ×
+      </button>
+    </div>
+
+    <div class="modal-body">
+
+      <div class="update-entry">
+        <div class="update-version">
+          v0.1.0
+        </div>
+
+        <ul>
+          <li>Initial release</li>
+          <li>.osu file loading</li>
+          <li>Detach Barline transform</li>
+          <li>Preview / Download workflow</li>
+          <li>Difficulty suffix support</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+  <script src="i18n.js"></script>
+
+  <script src="app/ui.js"></script>
+  <script src="app/fileLoader.js"></script>
+  <script src="app/download.js"></script>
+  <script src="app/renderers.js"></script>
+  <script src="app/settings.js"></script>
+  <script src="app/transformController.js"></script>
+  <script src="app/previewController.js"></script>
+
+  <script src="parsers/osuParser.js"></script>
+
+  <script src="core/hitObjectUtils.js"></script>
+  <script src="core/snapUtils.js"></script>
+  <script src="core/timingPointUtils.js"></script>
+
+  <script src="transforms/noopTransform.js"></script>
+  <script src="transforms/detachBarlineTransform.js"></script>
+  <script src="transforms/transformRunner.js"></script>
+
+  <script src="script.js"></script>
+</body>
+</html>
